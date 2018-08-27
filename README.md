@@ -11,11 +11,11 @@ Script contiene la fusión de 3 vulnerabilidades de tipo RCE sobre ApacheStruts,
 **CVE-2017-5638**  `Content-Type`<br>
 **CVE-2018-11776** `'redirect:' and 'redirectAction'`<br>
 
-![STRUTS-PWND1](https://github.com/s1kr10s/Apache-Struts-v3/blob/master/screen.png)
+<p align="center">
+  <img src="https://github.com/s1kr10s/Apache-Struts-v3/blob/master/screen.png" width="550" alt="accessibility text">
+</p>
 
 ## Upload Shell
-![STRUTS-PWND2](https://github.com/s1kr10s/Apache-Struts-v3/blob/master/shell.jpg)
-
 <p align="center">
-  <img src="https://github.com/s1kr10s/Apache-Struts-v3/blob/master/shell.jpg" width="350" alt="accessibility text">
+  <img src="https://github.com/s1kr10s/Apache-Struts-v3/blob/master/shell.jpg" width="550" alt="accessibility text">
 </p>
