@@ -16,3 +16,6 @@ Script contiene la fusión de 3 vulnerabilidades de tipo RCE sobre ApacheStruts,
 ## Upload Shell
 ![STRUTS-PWND2](https://github.com/s1kr10s/Apache-Struts-v3/blob/master/shell.jpg)
 
+<p align="center">
+  <img src="https://github.com/s1kr10s/Apache-Struts-v3/blob/master/shell.jpg" width="350" alt="accessibility text">
+</p>
