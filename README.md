@@ -20,6 +20,7 @@ Script contiene la fusión de 3 vulnerabilidades de tipo RCE sobre ApacheStruts,
 <br>
 
 ## Upload Shell
+Esta funcionalidad es efectiva cuando el servidor no tiene conexion a internet de tal manera que no podemos subir un archivo y la opcion seria crear uno.
 <p align="center">
   <img src="https://github.com/s1kr10s/Apache-Struts-v3/blob/master/shell.jpg" width="550" alt="accessibility text">
 </p>
