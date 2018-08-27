@@ -12,8 +12,9 @@ Script contiene la fusión de 3 vulnerabilidades de tipo RCE sobre ApacheStruts,
 **CVE-2018-11776** `'redirect:' and 'redirectAction'`<br>
 
 <p align="center">
-  <img src="https://github.com/s1kr10s/Apache-Struts-v3/blob/master/screen.png" width="550" alt="accessibility text">
+  <img src="https://github.com/s1kr10s/Apache-Struts-v3/blob/master/screen.png" width="600" alt="accessibility text">
 </p>
+<br>
 
 ## Upload Shell
 <p align="center">
