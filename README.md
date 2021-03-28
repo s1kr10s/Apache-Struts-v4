@@ -3,6 +3,8 @@
 El script contiene 5 vulnerabilidades distintas que explotarn vulnerabilidades de tipo RCE en ApacheStruts. por el momento solo contiene la capacidad de crear shell PHP.
 <br>
 
+---
+
 ## CVE ADD
 |CVE ID| DESC|
 |-|-
@@ -12,10 +14,11 @@ El script contiene 5 vulnerabilidades distintas que explotarn vulnerabilidades d
 |CVE-2018-11776|Apache Struts versions 2.3 to 2.3.34 and 2.5 to 2.5.16 suffer from possible Remote Code Execution when alwaysSelectFullNamespace is true (either by user or a plugin like Convention Plugin) and then: results are used with no namespace and in same time, its upper package have no or wildcard namespace and similar to results, same possibility when using url tag which doesn't have value and action set and in same time, its upper package have no or wildcard namespace.
 |CVE-2019-0230|Apache Struts 2.0.0 to 2.5.20 forced double OGNL evaluation, when evaluated on raw user input in tag attributes, may lead to remote code execution.
 
-## CVE ADD
+---
 
+## EXPLOIT
 <p align="center">
-  <img src="https://github.com/s1kr10s/Apache-Struts-v3/blob/master/exploit.png" width="600" alt="accessibility text">
+  <img src="https://github.com/s1kr10s/Apache-Struts-v3/blob/master/exploit.png" width="700" alt="accessibility text">
 </p>
 <br>
 
