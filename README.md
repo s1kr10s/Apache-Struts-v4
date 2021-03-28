@@ -6,7 +6,7 @@ El script contiene 5 vulnerabilidades distintas que explotarn vulnerabilidades d
 ---
 
 ## CVE ADD
-|CVE ID| DESC|
+|CVE ID| DESCRIPTION|
 |-|-
 |CVE-2013-2251|Apache Struts 2.0.0 through 2.3.15 allows remote attackers to execute arbitrary OGNL expressions via a parameter with a crafted (1) action:, (2) redirect:, or (3) redirectAction: prefix.
 |CVE-2017-5638|The Jakarta Multipart parser in Apache Struts 2 2.3.x before 2.3.32 and 2.5.x before 2.5.10.1 has incorrect exception handling and error-message generation during file-upload attempts, which allows remote attackers to execute arbitrary commands via a crafted Content-Type, Content-Disposition, or Content-Length HTTP header, as exploited in the wild in March 2017 with a Content-Type header containing a #cmd= string.
