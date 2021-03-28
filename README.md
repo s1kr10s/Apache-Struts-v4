@@ -5,15 +5,14 @@ El script contiene 5 vulnerabilidades distintas que explotarn vulnerabilidades d
 
 ## SHELL
 **php** `Funcion Terminada :)`<br>
-**jsp** `Funcion en desarrollo.`<br>
 <br>
 
 ## CVE ADD
 **CVE-2013-2251**  `'action:', 'redirect:' and 'redirectAction'`<br>
 **CVE-2017-5638**  `Content-Type`<br>
 **CVE-2018-11776** `'redirect:' and 'redirectAction'`<br>
-**CVE-2017-9805**\n
-**CVE-2019-0230**
+**CVE-2017-9805**<br>
+**CVE-2019-0230**<br>
 <br>
 
 <p align="center">
