@@ -1,6 +1,6 @@
-# Apache-Struts-v3
+# Apache-Struts-v4
 
-Script contiene la fusión de 3 vulnerabilidades de tipo RCE sobre ApacheStruts, además tiene la capacidad de crear shell servidor.
+El script contiene 5 vulnerabilidades distintas que explotarn vulnerabilidades de tipo RCE en ApacheStruts. por el momento solo contiene la capacidad de crear shell PHP.
 <br>
 
 ## SHELL
@@ -12,6 +12,8 @@ Script contiene la fusión de 3 vulnerabilidades de tipo RCE sobre ApacheStruts,
 **CVE-2013-2251**  `'action:', 'redirect:' and 'redirectAction'`<br>
 **CVE-2017-5638**  `Content-Type`<br>
 **CVE-2018-11776** `'redirect:' and 'redirectAction'`<br>
+**CVE-2017-9805**\n
+**CVE-2019-0230**
 <br>
 
 <p align="center">
